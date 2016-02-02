@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EBC15791C5F679C00C1969C /* raw_decode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC15781C5F679C00C1969C /* raw_decode.m */; };
 		1E1559D414D96C2500268030 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1559D314D96C2500268030 /* Foundation.framework */; };
 		1E45F05219ADC94F00139309 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E45F05119ADC94F00139309 /* Accelerate.framework */; };
 		1E7F116A1A45A56300EA2767 /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB0E7251A42D0D3005F0A92 /* libwebp.a */; };
@@ -45,6 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EBC15771C5F678000C1969C /* raw_decode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = raw_decode.h; sourceTree = "<group>"; };
+		0EBC15781C5F679C00C1969C /* raw_decode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = raw_decode.m; sourceTree = "<group>"; };
 		1E1559D314D96C2500268030 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1E2331C91781BC1600ACF19C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		1E45F05119ADC94F00139309 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -53,8 +56,8 @@
 		1E7F118E1A45B5C300EA2767 /* GetMetadataForFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
 		1E7F118F1A45B5C300EA2767 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		1E7F11921A45B5C300EA2767 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E7F11941A45B5C300EA2767 /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; };
-		1E7F11951A45B5C300EA2767 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; };
+		1E7F11941A45B5C300EA2767 /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; usesTabs = 1; };
+		1E7F11951A45B5C300EA2767 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; usesTabs = 1; };
 		1E7F11961A45B5C300EA2767 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1E9319531A52E687001E8818 /* bpg_decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bpg_decode.h; sourceTree = "<group>"; };
 		1E9319541A52E687001E8818 /* bpg_decode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bpg_decode.m; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 				1E93195A1A52E687001E8818 /* webp_decode.m */,
 				1E9319571A52E687001E8818 /* tools.h */,
 				1E9319581A52E687001E8818 /* tools.m */,
+				0EBC15771C5F678000C1969C /* raw_decode.h */,
+				0EBC15781C5F679C00C1969C /* raw_decode.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				1EFA993814D9288600A09F03 /* Sources */,
 				1EFA993914D9288600A09F03 /* Frameworks */,
 				1EFA993A14D9288600A09F03 /* Headers */,
+				0EBC157A1C5F6F4D00C1969C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -342,6 +348,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0EBC157A1C5F6F4D00C1969C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -Rf \"~/Library/QuickLook/$FULL_PRODUCT_NAME\"\ncp -R \"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME\" ~/Library/QuickLook\nqlmanage -r";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1E7F11571A459FE800EA2767 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -364,6 +386,7 @@
 				1E7F119C1A45B5C300EA2767 /* GeneratePreviewForURL.m in Sources */,
 				1E7F119E1A45B5C300EA2767 /* main.m in Sources */,
 				1E9319601A52E687001E8818 /* tools.m in Sources */,
+				0EBC15791C5F679C00C1969C /* raw_decode.m in Sources */,
 				1E93195E1A52E687001E8818 /* netpbm_decode.m in Sources */,
 				1E9319621A52E687001E8818 /* webp_decode.m in Sources */,
 				1E93195C1A52E687001E8818 /* bpg_decode.m in Sources */,

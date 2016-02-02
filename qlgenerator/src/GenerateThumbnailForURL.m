@@ -12,6 +12,7 @@
 #import "bpg_decode.h"
 #import "webp_decode.h"
 #import "netpbm_decode.h"
+#import "raw_decode.h"
 
 
 OSStatus GenerateThumbnailForURL(void* thisInterface, QLThumbnailRequestRef thumbnail, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options, CGSize maxSize);
@@ -40,14 +41,16 @@ OSStatus GenerateThumbnailForURL(__unused void* thisInterface, QLThumbnailReques
 
 		// Check by extension because it's highly unprobable that an UTI for these formats is declared
 		// the simplest way to declare one is creating a dummy automator app and adding imported/exported UTI conforming to public.image
-		if ([extension isEqualToString:@"webp"] || [extension isEqualToString:@"pgm"] || [extension isEqualToString:@"ppm"] || [extension isEqualToString:@"pbm"] || [extension isEqualToString:@"bpg"])
+		if ([extension isEqualToString:@"webp"] || [extension isEqualToString:@"pgm"] || [extension isEqualToString:@"ppm"] || [extension isEqualToString:@"pbm"] || [extension isEqualToString:@"bpg"] || [extension isEqualToString:@"raw"])
 		{
 			if (!QLThumbnailRequestIsCancelled(thumbnail))
 			{
 				// 1. decode the image
 				CGImageRef img_ref = NULL;
 				CFStringRef filepath = CFURLCopyPath(url);
-				if ([extension isEqualToString:@"webp"])
+				if ([extension isEqualToString:@"raw"])
+					img_ref = decode_raw_at_path(filepath, NULL);
+				else if ([extension isEqualToString:@"webp"])
 					img_ref = decode_webp_at_path(filepath, NULL);
 				else if ([extension isEqualToString:@"bpg"])
 					img_ref = decode_bpg_at_path(filepath, NULL);

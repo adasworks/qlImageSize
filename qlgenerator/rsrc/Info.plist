@@ -11,6 +11,7 @@
 			<string>QLGenerator</string>
 			<key>LSItemContentTypes</key>
 			<array>
+				<string>public.camera-raw-image</string>
 				<string>public.image</string>
 				<string>public.webp</string>
 				<string>com.google.webp</string>

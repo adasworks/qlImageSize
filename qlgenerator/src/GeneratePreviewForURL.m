@@ -13,6 +13,7 @@
 #import "bpg_decode.h"
 #import "webp_decode.h"
 #import "netpbm_decode.h"
+#import "raw_decode.h"
 
 
 // To enable logging --> defaults write -g QLEnableLogging NO
@@ -26,7 +27,7 @@ OSStatus GeneratePreviewForURL(__unused void* thisInterface, QLPreviewRequestRef
 	@autoreleasepool
 	{
 		NSString* extension = [[(__bridge NSURL*)url pathExtension] lowercaseString];
-		if ([extension isEqualToString:@"webp"] || [extension isEqualToString:@"pgm"] || [extension isEqualToString:@"ppm"] || [extension isEqualToString:@"pbm"] || [extension isEqualToString:@"bpg"])
+		if ([extension isEqualToString:@"webp"] || [extension isEqualToString:@"pgm"] || [extension isEqualToString:@"ppm"] || [extension isEqualToString:@"pbm"] || [extension isEqualToString:@"bpg"] || [extension isEqualToString:@"raw"])
 		{
 			// Non-standard images (not supported by the OS by default)
 			// Check by extension because it's highly unprobable that an UTI for these formats is declared
@@ -38,7 +39,9 @@ OSStatus GeneratePreviewForURL(__unused void* thisInterface, QLPreviewRequestRef
 				memset(&infos, 0, sizeof(image_infos));
 				CGImageRef img_ref = NULL;
 				CFStringRef filepath = CFURLCopyPath(url);
-				if ([extension isEqualToString:@"webp"])
+				if ([extension isEqualToString:@"raw"])
+					img_ref = decode_raw_at_path(filepath, &infos);
+				else if ([extension isEqualToString:@"webp"])
 					img_ref = decode_webp_at_path(filepath, &infos);
 				else if ([extension isEqualToString:@"bpg"])
 					img_ref = decode_bpg_at_path(filepath, &infos);
